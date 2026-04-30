@@ -4,21 +4,15 @@ terraform {
       source  = "hashicorp/null"
       version = "~> 3.0"
     }
-    random = {
-      source  = "hashicorp/random"
-      version = "~> 3.0"
-    }
   }
-  required_version = ">= 1.3.0"
 }
 
-resource "random_pet" "server_name" {
-  length    = 2
-  separator = "-"
-}
-
-resource "null_resource" "test" {
+resource "null_resource" "ctm_trigger_test" {
   triggers = {
-    name = random_pet.server_name.id
+    always_run = timestamp()
+  }
+
+  provisioner "local-exec" {
+    command = "echo 'Triggered by Control-M at ${timestamp()}'"
   }
 }
