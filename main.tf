@@ -1,27 +1,23 @@
 terraform {
-  required_providers {
-    null = {
-      source  = "hashicorp/null"
-      version = "~> 3.0"
-    }
-    random = {
-      source  = "hashicorp/random"
-      version = "~> 3.0"
-    }
-  }
+  required_providers {
+    null = {
+      source  = "hashicorp/null"
+      version = "~> 3.0"
+    }
+    random = {
+      source  = "hashicorp/random"
+      version = "~> 3.0"
+    }
+  }
 }
 
 resource "random_pet" "server_name" {
-  length    = 2
-  separator = "-"
+  length    = 2
+  separator = "-"
 }
 
 resource "null_resource" "ctm_trigger_test" {
-  triggers = {
-    always_run = timestamp()
-  }
-
-  provisioner "local-exec" {
-    command = "echo 'Triggered by Control-M - Server: ${random_pet.server_name.id}'"
-  }
+  triggers = {
+    always_run = timestamp()
+  }
 }
